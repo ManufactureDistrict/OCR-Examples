@@ -1,0 +1,41 @@
+doctype html
+html.
+	<body>
+	<script src="/javascripts/ocrad.js"></script>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+	
+	<script>
+
+	function readText(image)
+	{
+		var canvas = document.getElementById("canvas");
+		canvas.width = image.naturalWidth;
+		canvas.height = image.naturalHeight;
+
+		var context = canvas.getContext("2d");
+		context.drawImage(image, 0, 0);
+
+		var parsedText = OCRAD(canvas);
+		// Or:
+		// var parsedText = OCRAD(context);
+
+		var output = document.getElementById("output");
+		output.innerHTML = parsedText;
+	};
+
+	</script>
+
+	<div class="entranceFade first">
+		<div class="header">Image to use:</div>		
+		<img onload="readText(this)" id="image" src="/images/img.png"/>
+	</div>
+	<div class="entranceFade second">	
+		<div class="header">Canvas:</div>
+		<canvas id="canvas" class="border">
+		This browser does not support the HTML5 canvas tag</canvas>
+	</div>
+	<div class="entranceFade third">
+		<div class="header">Text from image:</div>
+		<div class="header highlight" id="output">Fecthing text...</div>	
+	</div>
+	</body>
